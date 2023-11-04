@@ -5,16 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DesctopContactApp.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300">
+             d:DesignHeight="100" d:DesignWidth="400">
     <Grid Background="LightGray">
         <StackPanel>
-            <TextBlock Text="Name LastName"
-                                       FontSize="20"
-                                       x:Name ="nameTextBlock"
-                                       FontWeight="Bold"/>
-            <TextBlock Text="Example.domen.com"
-                                       FontSize="15"
-                                        x:Name ="emailTextBlock"
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Name"
+                           FontSize="20"
+                           x:Name ="nameTextBlock"
+                           FontWeight="Bold"/>
+                <TextBlock Grid.Column="1" Text="Surname"
+                           FontSize="20"
+                           x:Name ="surnameTextBlock"
+                           FontWeight="Bold"/>
+                <TextBlock Grid.Column="2" Text="Patronymic"
+                           FontSize="20"
+                           x:Name ="PatronymicTextBlock"    
+                           FontWeight="Bold"/>
+            </Grid>
+
+            <TextBlock Text="Address"
+                                       FontSize="15"    
+                                        x:Name ="AddressTextBlock"
                                        Foreground="DodgerBlue"/>
             <TextBlock Text="123 456 7889"
                                        FontSize="20"

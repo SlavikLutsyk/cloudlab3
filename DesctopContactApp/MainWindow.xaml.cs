@@ -14,7 +14,7 @@ namespace DesctopContactApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static string _connectionString = "DefaultEndpointsProtocol=https;AccountName=mycontactapp;AccountKey=NX6s/z9BwCcZwP/Wl8ngHsA7+eb+SAaooXvYqKlupkXcIMQP/Y0tpJ1TTUPIC0WHnEu+yKiH7UK/+AStYn3OOQ==;EndpointSuffix=core.windows.net";
+        private static readonly string _connectionString = "DefaultEndpointsProtocol=https;AccountName=mycontactapp;AccountKey=NX6s/z9BwCcZwP/Wl8ngHsA7+eb+SAaooXvYqKlupkXcIMQP/Y0tpJ1TTUPIC0WHnEu+yKiH7UK/+AStYn3OOQ==;EndpointSuffix=core.windows.net";
 
         List<Contact> contacts;
         public MainWindow()
@@ -30,7 +30,7 @@ namespace DesctopContactApp
             newContactWindow.ShowDialog();
             ReadDatabase();
         }
-        async void ReadDatabase()
+        public async void ReadDatabase()
         {
 
             var storageAccount = CloudStorageAccount.Parse(_connectionString);

@@ -27,32 +27,6 @@ namespace DesctopContactApp
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            //var storageAccount = CloudStorageAccount.Parse(_connectionString);
-
-            //var tableClient = storageAccount.CreateCloudTableClient();
-
-            //var table = tableClient.GetTableReference("contact");
-            //await table.CreateIfNotExistsAsync();
-
-
-            //Contact contact = new Contact()
-            //{
-            //    Name = nameTextBox.Text,
-            //    Email = emailTextBox.Text,
-            //    Phone = phoneTextBox.Text
-            //};
-
-            //using (SQLiteConnection connection = new SQLiteConnection(App.dbPath))
-            //{
-            //    connection.CreateTable<Contact>();
-            //    connection.Insert(contact);
-            //}
-
-            //var insertOperation = TableOperation.Insert(contact);
-            //await table.ExecuteAsync(insertOperation);
-
-
-
 
             var storageAccount = CloudStorageAccount.Parse(_connectionString);
 
@@ -68,7 +42,9 @@ namespace DesctopContactApp
                 PartitionKey = Guid.NewGuid().ToString(),
                 RowKey = Guid.NewGuid().ToString(),
                 Name = nameTextBox.Text,
-                Email = emailTextBox.Text,
+                SurName = surnameTextBox.Text,
+                Patronymic = PatronymicTextBox.Text,
+                Address = addressTextBox.Text,
                 Phone = phoneTextBox.Text
 
             };
@@ -78,8 +54,10 @@ namespace DesctopContactApp
             string contactJson = JsonConvert.SerializeObject(contact);
 
 
-            var contactEntity = new DynamicTableEntity(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var contactEntity = new DynamicTableEntity(contact.PartitionKey, contact.RowKey);
             contactEntity.Properties.Add("Contact", EntityProperty.GeneratePropertyForString(contactJson));
+
+
 
             var insertOperation = TableOperation.InsertOrReplace(contactEntity);
             await table.ExecuteAsync(insertOperation);

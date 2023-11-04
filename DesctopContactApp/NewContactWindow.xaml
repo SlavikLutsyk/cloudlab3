@@ -7,14 +7,24 @@
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Title="NewContactWindow" Height="250" Width="400">
+        Title="NewContactWindow" Height="300" Width="300">
    
     <Grid>
         <StackPanel Margin="10px">
+            <Label>Name:</Label>
             <TextBox x:Name="nameTextBox"
                      Margin="0,0,0,5"/>
-            <TextBox x:Name="emailTextBox"
+            <Label>Surname:</Label>
+            <TextBox x:Name="surnameTextBox"    
                      Margin="0,0,0,5"/>
+            <Label>Patronymic:</Label>
+            <TextBox x:Name="PatronymicTextBox"    
+                     Margin="0,0,0,5"/>
+
+            <Label>Address:</Label>
+            <TextBox x:Name="addressTextBox"    
+                     Margin="0,0,0,5"/>
+            <Label>PhoneNumber:</Label>
             <TextBox x:Name="phoneTextBox" 
                      Margin="0,0,0,5"/>
             <Button Content="Save"

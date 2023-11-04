@@ -10,10 +10,19 @@
         Title="ContactDetails" Height="400" Width="350">
     <Grid>
         <StackPanel Margin="10px">
+            <Label>Name:</Label>
             <TextBox x:Name="nameTextBox"
                      Margin="0,0,0,5"/>
-            <TextBox x:Name="emailTextBox"
+            <Label>Surname:</Label>
+            <TextBox x:Name="SurNameTextBox"        
                      Margin="0,0,0,5"/>
+            <Label>Patronymic:</Label>
+            <TextBox x:Name="PatronymicTextBox"           
+                     Margin="0,0,0,5"/>
+            <Label>Address:</Label>
+            <TextBox x:Name="addressTextBox"    
+                     Margin="0,0,0,5"/>
+            <Label>Phone:</Label>
             <TextBox x:Name="phoneTextBox"
                      Margin="0,0,0,5"/>
             <Button Content="Update"
