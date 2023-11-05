@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
          ResizeMode="NoResize"
-        Title="ContactDetails" Height="400" Width="350">
+        Title="ContactDetails" Height="500" Width="350">
     <Grid>
         <StackPanel Margin="10px">
             <Label>Name:</Label>
@@ -25,6 +25,7 @@
             <Label>Phone:</Label>
             <TextBox x:Name="phoneTextBox"
                      Margin="0,0,0,5"/>
+           
             <Button Content="Update"
                     x:Name="updateButton"
                     Click="updateButton_Click"/>

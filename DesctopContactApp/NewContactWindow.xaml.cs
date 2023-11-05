@@ -21,9 +21,6 @@ namespace DesctopContactApp
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
 
-
-
-
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -62,8 +59,12 @@ namespace DesctopContactApp
             var insertOperation = TableOperation.InsertOrReplace(contactEntity);
             await table.ExecuteAsync(insertOperation);
 
-
+            if (Owner is MainWindow mainWindow)
+            {
+                mainWindow.ReadDatabase();
+            }
             Close();
         }
+
     }
 }

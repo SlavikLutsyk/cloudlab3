@@ -2,7 +2,6 @@
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
-using System;
 using System.Windows;
 
 namespace DesctopContactApp
@@ -33,34 +32,39 @@ namespace DesctopContactApp
 
         private async void updateButton_Click(object sender, RoutedEventArgs e)
         {
+            var storageAccount = CloudStorageAccount.Parse(_connectionString);
+            var tableClient = storageAccount.CreateCloudTableClient();
+            var table = tableClient.GetTableReference("contact");
 
-            try
+            await table.CreateIfNotExistsAsync();
+
+            TableOperation retrieveOperation = TableOperation.Retrieve<Contact>(contact.PartitionKey, contact.RowKey);
+            TableResult result = await table.ExecuteAsync(retrieveOperation);
+            Contact existingContact = (Contact)result.Result;
+
+
+            existingContact.Name = nameTextBox.Text;
+            existingContact.SurName = SurNameTextBox.Text;
+            existingContact.Patronymic = PatronymicTextBox.Text;
+            existingContact.Address = addressTextBox.Text;
+            existingContact.Phone = phoneTextBox.Text;
+
+
+            string contactJson = JsonConvert.SerializeObject(existingContact);
+
+
+            var contactEntity = new DynamicTableEntity(existingContact.PartitionKey, existingContact.RowKey);
+            contactEntity.Properties.Add("Contact", EntityProperty.GeneratePropertyForString(contactJson));
+
+
+            TableOperation updateOperation = TableOperation.InsertOrReplace(contactEntity);
+            await table.ExecuteAsync(updateOperation);
+
+
+            if (Owner is MainWindow mainWindow)
             {
-                var storageAccount = CloudStorageAccount.Parse(_connectionString);
-                var tableClient = storageAccount.CreateCloudTableClient();
-                var table = tableClient.GetTableReference("contact");
-
-                await table.CreateIfNotExistsAsync();
-
-                TableOperation retrieveOperation = TableOperation.Retrieve<DynamicTableEntity>(contact.PartitionKey, contact.RowKey);
-                TableResult result = await table.ExecuteAsync(retrieveOperation);
-                DynamicTableEntity existingEntity = (DynamicTableEntity)result.Result;
-
-                if (existingEntity != null)
-                {
-                    string updatedContactJson = JsonConvert.SerializeObject(contact);
-                    existingEntity.Properties["Contact"] = EntityProperty.GeneratePropertyForString(updatedContactJson);
-
-                    TableOperation updateOperation = TableOperation.Replace(existingEntity);
-                    await table.ExecuteAsync(updateOperation);
-                    MessageBox.Show("success");
-                }
+                mainWindow.ReadDatabase();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
             Close();
 
 
@@ -83,7 +87,12 @@ namespace DesctopContactApp
 
             TableOperation deleteOperation = TableOperation.Delete(existingContact);
             await table.ExecuteAsync(deleteOperation);
-            MessageBox.Show("Success");
+
+
+            if (Owner is MainWindow mainWindow)
+            {
+                mainWindow.ReadDatabase();
+            }
             Close();
 
         }
