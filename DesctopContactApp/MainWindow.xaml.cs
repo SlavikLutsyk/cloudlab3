@@ -15,7 +15,7 @@ namespace DesctopContactApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly string _connectionString = "DefaultEndpointsProtocol=https;AccountName=mycontactapp;AccountKey=NX6s/z9BwCcZwP/Wl8ngHsA7+eb+SAaooXvYqKlupkXcIMQP/Y0tpJ1TTUPIC0WHnEu+yKiH7UK/+AStYn3OOQ==;EndpointSuffix=core.windows.net";
+        private static readonly string _connectionString = "DefaultEndpointsProtocol=https;AccountName=nestorcontactsapp;AccountKey=9cqapxualBJB83MLUD9pXN28Y5xsI33vflXKgyF1feBCFSeAKMysZkr4wVQUlSHw2gad0nLz0PdM+AStpBS+pA==;EndpointSuffix=core.windows.net";
 
         List<Contact> contacts;
 
